@@ -13,43 +13,29 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Determine environment mode
 env_mode = os.getenv("ENV_MODE", "dev")  # Default to 'dev' if ENV_MODE is not set
 logging.info(f"Environment mode: {env_mode}")
+'''
+Environment Global Var
+'''
 
-# Define environment-specific configurations
-def get_cred_dict(env_mode):
-    if env_mode == "dev":
-        return {
-            "type": os.getenv("DEV_TYPE"),
-            "project_id": os.getenv("DEV_PROJECT_ID"),
-            "private_key_id": os.getenv("DEV_PRIVATE_KEY_ID"),
-            "private_key": os.getenv("DEV_PRIVATE_KEY").replace("\\n", "\n"),
-            "client_email": os.getenv("DEV_CLIENT_EMAIL"),
-            "client_id": os.getenv("DEV_CLIENT_ID"),
-            "auth_uri": os.getenv("DEV_AUTH_URI"),
-            "token_uri": os.getenv("DEV_TOKEN_URI"),
-            "auth_provider_x509_cert_url": os.getenv("DEV_AUTH_PROVIDER_X509_CERT_URL"),
-            "client_x509_cert_url": os.getenv("DEV_CLIENT_X509_CERT_URL")
-        }
-    elif env_mode == "prod":
-        return {
-            "type": os.getenv("PROD_TYPE"),
-            "project_id": os.getenv("PROD_PROJECT_ID"),
-            "private_key_id": os.getenv("PROD_PRIVATE_KEY_ID"),
-            "private_key": os.getenv("PROD_PRIVATE_KEY").replace("\\n", "\n"),
-            "client_email": os.getenv("PROD_CLIENT_EMAIL"),
-            "client_id": os.getenv("PROD_CLIENT_ID"),
-            "auth_uri": os.getenv("PROD_AUTH_URI"),
-            "token_uri": os.getenv("PROD_TOKEN_URI"),
-            "auth_provider_x509_cert_url": os.getenv("PROD_AUTH_PROVIDER_X509_CERT_URL"),
-            "client_x509_cert_url": os.getenv("PROD_CLIENT_X509_CERT_URL")
-        }
-    else:
-        raise ValueError("Invalid ENV_MODE specified")
+env = os.getenv("ENV")
+f'{env.upper()}'
 
-cred_dict = get_cred_dict(env_mode)
+firebase_cred_dict = {
+    "type": os.getenv(f'{env.upper()}_TYPE'),
+    "project_id": os.getenv(f'{env.upper()}_PROJECT_ID'),
+    "private_key_id": os.getenv(f'{env.upper()}_PRIVATE_KEY_ID'),
+    "private_key": os.getenv(f'{env.upper()}_PRIVATE_KEY').replace("\\n", "\n"),
+    "client_email": os.getenv(f'{env.upper()}_CLIENT_EMAIL'),
+    "client_id": os.getenv(f'{env.upper()}_CLIENT_ID'),
+    "auth_uri": os.getenv(f'{env.upper()}_AUTH_URI'),
+    "token_uri": os.getenv(f'{env.upper()}_TOKEN_URI'),
+    "auth_provider_x509_cert_url": os.getenv(f'{env.upper()}_AUTH_PROVIDER_X509_CERT_URL'),
+    "client_x509_cert_url": os.getenv(f'{env.upper()}_CLIENT_X509_CERT_URL')
+}
 
 try:
     logging.info("Attempting to initialize Firebase app with provided credentials.")
-    cred = credentials.Certificate(cred_dict)
+    cred = credentials.Certificate(firebase_cred_dict)
     app = firebase_admin.initialize_app(cred)
     logging.info("Firebase app initialized successfully.")
     
