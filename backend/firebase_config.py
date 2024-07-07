@@ -35,7 +35,6 @@ firebase_cred_dict = {
 
 try:
     logging.info("Attempting to initialize Firebase app with provided credentials.")
-    if env not 
     cred = credentials.Certificate(firebase_cred_dict)
     app = firebase_admin.initialize_app(cred)
     logging.info("Firebase app initialized successfully.")
