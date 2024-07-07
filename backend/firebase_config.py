@@ -10,15 +10,15 @@ load_dotenv()
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Determine environment mode
-env_mode = os.getenv("ENV_MODE", "dev")  # Default to 'dev' if ENV_MODE is not set
-logging.info(f"Environment mode: {env_mode}")
 '''
-Environment Global Var
+Environment Global Var 
 '''
 
+if 'ENV' not in os.environ:
+    raise ValueError("ENV not set")
+
 env = os.getenv("ENV")
-f'{env.upper()}'
+logging.info(f"Environment: {env}")
 
 firebase_cred_dict = {
     "type": os.getenv(f'{env.upper()}_TYPE'),
@@ -35,6 +35,7 @@ firebase_cred_dict = {
 
 try:
     logging.info("Attempting to initialize Firebase app with provided credentials.")
+    if env not 
     cred = credentials.Certificate(firebase_cred_dict)
     app = firebase_admin.initialize_app(cred)
     logging.info("Firebase app initialized successfully.")
@@ -56,6 +57,7 @@ try:
             print("No such document!")
     except Exception as e:
         logging.error(f"Failed to retrieve document: {e}")
+        
 except ValueError as ve:
     logging.error(f"ValueError: {ve}")
 except firebase_admin.exceptions.FirebaseError as fe:
