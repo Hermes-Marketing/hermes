@@ -1,2 +1,5 @@
+# Ignore the entire hermes_back testing env directory
+hermes_back/
+
 # Environment variables
 .env
