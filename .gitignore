@@ -1,0 +1,7 @@
+# Ignore all JSON files
+*.json
+
+# Ignore all TXT files
+*.txt
+# exception: requirements.txt
+!requirements.txt
