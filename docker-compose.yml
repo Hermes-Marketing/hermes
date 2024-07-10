@@ -2,11 +2,14 @@ version: "3.8"
 services:
   frontend:
     container_name: frontend
-    build: ./frontend
+    build:
+      context: ./frontend
+      target: development
     ports:
       - "8080:8080"
     volumes:
-      - ./frontend:/app/frontend
+      - ./frontend:/app
+      - /app/node_modules
     depends_on:
       - backend
 
