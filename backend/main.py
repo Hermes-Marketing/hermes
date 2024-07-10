@@ -1,15 +1,18 @@
-# File initially made to expose an endpoint
-
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from app.api.v1.api import router as api_router
 import uvicorn
 
-app = FastAPI()
+app = FastAPI(
+    title="Hermes API",
+    version="1.0.0",
+    docs_url="/docs",
+)
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+app.mount("/", StaticFiles(directory="../frontend/dist", html=True), name="static")
+
+# Include the API router from v1
+app.include_router(api_router, prefix="/v1")
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
-
-
+    uvicorn.run(app, host="0.0.0.0", port=8000)
