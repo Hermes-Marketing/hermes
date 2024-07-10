@@ -2,10 +2,6 @@
 
 destination marketing for greeks
 
-# Project Directory
-
-tbd
-
 # Getting Started
 
 While in a terminal that is open in the root directory run the following commands

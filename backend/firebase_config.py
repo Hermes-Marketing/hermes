@@ -3,10 +3,10 @@ from firebase_admin import credentials, firestore
 import logging
 import os
 import json
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
 # Load environment variables from .env file
-# load_dotenv()
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -22,6 +22,10 @@ if 'ENV' not in os.environ:
 env =  os.getenv('ENV')
 logging.info(f"Environment: {env}")
 
+
+
+
+
 env_firebase_cred_dict = {
     "type": os.getenv('ACCOUNT_TYPE'),
     "project_id": os.getenv(f'{env.upper()}_PROJECT_ID'),
@@ -36,7 +40,7 @@ env_firebase_cred_dict = {
     "universe_domain": os.getenv('FIREB_UNIVERSE_DOMAIN'),
 }
 
-# print(json.dumps(env_firebase_cred_dict, indent=4)) # If you have issues and need to see the dict, uncomment this line
+print(json.dumps(env_firebase_cred_dict, indent=4)) # If you have issues and need to see the dict, uncomment this line
 
 try:
     logging.info("Attempting to initialize Firebase app with provided credentials.")

@@ -1,5 +1,14 @@
-# Vue 3 + Vite
+# Getting Started
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+# frontend structure
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+src/
+|-- assets/ # Static assets like images, fonts, and icons
+|-- authentication/ # Authentication-related logic and components
+|-- components/ # Reusable UI components
+|-- modules/ # Feature-specific modules
+|-- router/ # Application routing configuration
+|-- store/ # State management (e.g., Vuex store or Redux)
+|-- style/ # Global styles and CSS files
+|-- utilities/ # Utility functions and helpers
+|-- views/ # Application views and pages
