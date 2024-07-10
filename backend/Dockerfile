@@ -2,7 +2,7 @@
 FROM python:3.8
 
 # Set working directory
-WORKDIR /app
+WORKDIR /app/backend
 
 # RUN pisp install fastapi uvicorn
 
