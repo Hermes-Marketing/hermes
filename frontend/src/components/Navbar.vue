@@ -2,8 +2,10 @@
   <div>
     <nav class="navbar">
       <div class="navbar-brand">
-        <a class="navbar-item" href="#">
-          Hermes (home? idk if this is necessary)
+        <a class="navbar-item" href="#"> Hermes (home) </a>
+        <a class="navbar-item" href="#admin">
+          <i class="fas fa-user-shield"></i>
+          Admin
         </a>
       </div>
       <div class="navbar-menu">
