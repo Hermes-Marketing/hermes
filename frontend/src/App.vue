@@ -1,25 +1,39 @@
-<script setup>
-import Navbar from "./components/Navbar.vue";
-</script>
-
 <template>
-  <div><h1>Stuff</h1></div>
-  <hr />
-  <br />
-  <Navbar />
+  <div id="app">
+    <Navbar @category-selected="fetchData" />
+    <CardList :selectedData="selectedData" />
+  </div>
 </template>
 
+<script setup>
+import { ref } from "vue";
+import Navbar from "./components/Navbar.vue";
+import CardList from "./components/CardList.vue";
+
+const selectedData = ref({ category: "", subCategory: "" });
+
+const fetchData = (data) => {
+  selectedData.value = data;
+};
+</script>
+
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: #333;
+  z-index: 1000;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.card-list {
+  margin-top: 1rem;
+  width: 100%;
 }
 </style>
