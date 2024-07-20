@@ -7,6 +7,7 @@
           :key="item"
           class="sub-navbar-item"
           href="#"
+          @click.prevent="selectSubItem(item)"
         >
           {{ item }}
         </a>
@@ -22,6 +23,11 @@ export default {
     subItems: {
       type: Array,
       required: true,
+    },
+  },
+  methods: {
+    selectSubItem(subItem) {
+      this.$emit("sub-item-selected", subItem);
     },
   },
 };
