@@ -1,6 +1,8 @@
+#TO BE REMOVED
 from backend.app.database.config import get_db
 
 import json
+
 
 def main():
     db = get_db()
