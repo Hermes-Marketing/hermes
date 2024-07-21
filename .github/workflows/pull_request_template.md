@@ -2,6 +2,8 @@
 
 ## Issue ticket number and link
 
+## How to test changes
+
 ## Checklist before requesting a review
 
 - [ ] I have performed a self-review of my code
