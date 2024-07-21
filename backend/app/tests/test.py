@@ -1,4 +1,3 @@
-
 from backend.app.database.config import get_db
 
 import json
