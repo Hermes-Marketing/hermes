@@ -7,6 +7,10 @@ router = APIRouter()
 
 @router.delete("/document/{collection_name}/{document_id}")
 def delete_document(collection_name: str, document_id: str):
+    """
+    Delete a document from a collection 
+    using the collection name and document ID
+    """
     if not valid_collection_name(collection_name):
         return {"error": "Invalid collection name"}, 400
     
