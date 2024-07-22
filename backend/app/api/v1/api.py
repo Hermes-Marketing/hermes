@@ -9,4 +9,4 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
-router.include_router(ep.businesses.router, prefix="/businesses", tags=["businesses"])
+router.include_router(ep.business.router, prefix="/business", tags=["business"])
