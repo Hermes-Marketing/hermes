@@ -11,8 +11,8 @@ router = APIRouter()
 async def delete_document(collection_name: str, document_id: str):
     """
     Delete a document from a collection using the collection name and document ID.
-    - **collection_name**: Unique identifier for the collection.
-    - **document_id**: Unique identifier for the document within the collection.
+    - collection_name: identifier for the collection.
+    - document_id: identifier for the document within the collection.
     """
     if not valid_collection_name(collection_name):
         raise HTTPException(status_code=400, detail="Invalid collection name")    
