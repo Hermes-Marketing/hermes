@@ -22,5 +22,15 @@ class BusinessRepository(AppRepository):
         """
         logging.info("Collection name: %s", collection_name)
         logging.info("DB Session: %s", self.db)
-        query = self.db.query(Business).filter_by(collection_name=collection_name)
-        return paginate(query)
+
+        # Access the collection
+        collection_ref = self.db.collection(collection_name)
+        
+        # Query the collection (no direct equivalent to SQL query here)
+        docs = collection_ref.stream()
+        
+        # Convert Firestore documents to Business instances
+        businesses = [Business(**doc.to_dict()) for doc in docs]
+
+        # Paginate the results (assuming you have a way to handle pagination for Firestore)
+        return paginate(businesses)
