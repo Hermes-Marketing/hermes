@@ -15,8 +15,12 @@ services:
 
   backend:
     container_name: backend
-    build: ./backend
+    build:
+      context: ./backend
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/app/backend
+      - ./backend:/app
+      - ./frontend/dist:/app/frontend/dist
+    environment:
+      - PYTHONUNBUFFERED=1

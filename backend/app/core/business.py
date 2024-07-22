@@ -4,11 +4,14 @@
     Defines all functions that operate on the "business" collection in the database
 
 """
+import logging
 from fastapi_pagination.ext.sqlalchemy import paginate
+from app.core.main import AppRepository
 from app.models.business import Business
+from fastapi_pagination import Page
 
-class BusinessRepository:
-    def get_all_businesses(self, collection_name: str):
+class BusinessRepository(AppRepository):
+    def get_all_businesses(self, collection_name: str) -> Page[Business]:
         """
         Get all businesses from the specified collection
 
@@ -17,6 +20,7 @@ class BusinessRepository:
         - Returns:
             Paged list of all businesses in the specified collection
         """
-        query = self.db_session.query(Business).filter_by(collection_name=collection_name)
-        return paginate(query)        
-    
+        logging.info("Collection name: %s", collection_name)
+        logging.info("DB Session: %s", self.db)
+        query = self.db.query(Business).filter_by(collection_name=collection_name)
+        return paginate(query)
