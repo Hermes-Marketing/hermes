@@ -59,7 +59,7 @@ export default {
       return [
         {
           id: 1,
-          name: "Business 1",
+          name: "Tap and Social Business",
           owner: "Owner 1",
           image: "https://via.placeholder.com/300",
           website: "https://example.com",
@@ -68,7 +68,7 @@ export default {
         },
         {
           id: 2,
-          name: "Business 2",
+          name: "Italian Restaurant",
           owner: "Owner 2",
           image: "https://via.placeholder.com/300",
           website: "https://example.com",

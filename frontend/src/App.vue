@@ -1,4 +1,6 @@
 <template>
+  <div><h1>Title and Stuff</h1></div>
+  <hr />
   <div id="app">
     <Navbar @category-selected="fetchData" />
     <CardList :selectedData="selectedData" />

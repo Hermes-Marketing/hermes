@@ -2,7 +2,9 @@
   <div>
     <nav class="navbar">
       <div class="navbar-brand">
-        <a class="navbar-item" href="#"> Hermes (home) </a>
+        <a class="navbar-item" href="#" @click="resetSelection">
+          Hermes (home)
+        </a>
         <a class="navbar-item" href="#admin">
           <i class="fas fa-user-shield"></i>
           Admin
@@ -53,6 +55,9 @@ export default {
     };
   },
   methods: {
+    resetSelection() {
+      this.$emit("category-selected", { category: "", subCategory: "" });
+    },
     selectItem(item) {
       const subNavMapping = {
         Bar: [
