@@ -28,3 +28,4 @@ USER node
 # Expose port and start the app
 EXPOSE 8080
 CMD ["npm", "run", "dev"]
+
