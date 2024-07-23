@@ -5,10 +5,10 @@
 """
 
 from fastapi import APIRouter, status, Depends
-from fastapi_pagination import Page
 from app.schemas.business import Business
 from app.core.business import BusinessRepository
 from app.database.config import get_db
+from typing import List
 import logging
 router = APIRouter()
 
@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 
-@router.get("/{collection_name}", status_code=status.HTTP_200_OK, response_model=Page[Business])
+@router.get("/{collection_name}", status_code=status.HTTP_200_OK, response_model=List[Business])
 async def get_all_businesses(collection_name: str, db_session=Depends(get_db)):
     """
     Get all businesses from the specified collection
