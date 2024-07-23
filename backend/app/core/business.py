@@ -2,7 +2,7 @@
     app.core.business
     ~~~~~~~~~~~~~~~~~~
 
-    Defines the business repository class, which operates on the business collection in Firestore
+    Defines the business repository class, which operates on the businesses collection in Firestore
 """
 
 import logging
