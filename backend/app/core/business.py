@@ -4,14 +4,11 @@
 
     Defines the business repository class, which operates on the businesses collection in Firestore
 """
-
-import logging
 from typing import List
 from app.core.main import AppRepository
 from app.models.business import Business
 
 
-logging.basicConfig(level=logging.INFO)
 
 class BusinessRepository(AppRepository):
     def get_all_businesses(self, collection_name: str) -> List[Business]:

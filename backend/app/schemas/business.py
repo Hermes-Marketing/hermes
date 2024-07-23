@@ -5,7 +5,7 @@
 
 """
 
-from pydantic import BaseModel, EmailStr, HttpUrl
+from pydantic import BaseModel
 from typing import Optional
 
 class Business(BaseModel):
@@ -29,5 +29,4 @@ class Business(BaseModel):
     country: str
     deleted_at: Optional[str]
 
-    class Config:
-        orm_mode = True
+   

@@ -9,12 +9,9 @@ from app.schemas.business import Business
 from app.core.business import BusinessRepository
 from app.database.config import get_db
 from typing import List
-import logging
+
+
 router = APIRouter()
-
-logging.basicConfig(level=logging.INFO)
-
-
 
 
 @router.get("/{collection_name}", status_code=status.HTTP_200_OK, response_model=List[Business])
@@ -27,7 +24,5 @@ async def get_all_businesses(collection_name: str, db_session=Depends(get_db)):
     - Returns:
         Paged list of all businesses in the specified collection
     """
-    print("here")
-    logging.info("Collection name: %s", collection_name)
-    logging.info("DB Session: %s", db_session)
+    
     return BusinessRepository(db_session).get_all_businesses(collection_name)

@@ -1,7 +1,7 @@
 """
     app.models.business
     ~~~~~~~~~~~~~~~~~~~
-    Defines the Pydantic schema for the Business model
+    Defines the Pydantic model for the Business resource
 """
 
 from pydantic import BaseModel
@@ -29,3 +29,6 @@ class Business(BaseModel):
     zip_code: Optional[str] = None
     country: str
     deleted_at: Optional[str] = None 
+        
+    class Config:
+        orm_mode = True
