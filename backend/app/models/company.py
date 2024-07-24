@@ -1,7 +1,7 @@
 """
     app.models.company
     ~~~~~~~~~~~~~~~~~~~
-    Defines the Pydantic model for the Business resource
+    Defines the Pydantic model for the Company resource
 """
 
 from pydantic import BaseModel

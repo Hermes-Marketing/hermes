@@ -26,7 +26,7 @@ class CompanyRepository(AppRepository):
             docs = self.db.collection('companies').stream()
             for doc in docs:
                 company_data = doc.to_dict()
-                companies = Company(
+                company = Company(
                     firestore_id=doc.id,
                     category=company_data.get('category'),
                     sub_category=company_data.get('subcategory'),
@@ -48,7 +48,7 @@ class CompanyRepository(AppRepository):
                     country=company_data.get('country'),
                     deleted_at=company_data.get('deleted_at')
                 )
-                companies.append(companies)
+                companies.append(company)
         except Exception as e:
             logging.error("Error: %s", e)
             raise e

@@ -5,8 +5,8 @@
 """
 
 from fastapi import APIRouter, status, Depends
-from backend.app.schemas.company import Company
-from backend.app.core.company import CompanyRepository
+from app.schemas.company import Company
+from app.core.company import CompanyRepository
 from app.database.config import get_db
 from typing import List
 

@@ -1,7 +1,7 @@
 """
     app.schemas.company
     ~~~~~~~~~~~~~~~~~~~~~~
-    Defines all the Pydantic schemas related to businesses
+    Defines all the Pydantic schemas related to company resource
 
 """
 
