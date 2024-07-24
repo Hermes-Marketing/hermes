@@ -1,1 +1,1 @@
-from .business import BusinessRepository
+from .company import CompanyRepository

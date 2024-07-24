@@ -1,5 +1,5 @@
 """
-    app.models.business
+    app.models.company
     ~~~~~~~~~~~~~~~~~~~
     Defines the Pydantic model for the Business resource
 """
@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-class Business(BaseModel):
+class Company(BaseModel):
     firestore_id: str
     category: str
     sub_category: Optional[str] = None

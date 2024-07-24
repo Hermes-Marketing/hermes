@@ -1,5 +1,5 @@
 """
-    app.schemas.businesses
+    app.schemas.company
     ~~~~~~~~~~~~~~~~~~~~~~
     Defines all the Pydantic schemas related to businesses
 
@@ -8,7 +8,7 @@
 from pydantic import BaseModel
 from typing import Optional
 
-class Business(BaseModel):
+class Company(BaseModel):
     category: str
     sub_category: str
     description: str
