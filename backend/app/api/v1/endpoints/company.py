@@ -26,3 +26,17 @@ async def get_all_companies(db_session=Depends(get_db)):
     """
     
     return CompanyRepository(db_session).get_all_companies()
+
+@router.get("/{category}", status_code=status.HTTP_200_OK, response_model=List[Company])
+async def get_by_category(category: str,db_session=Depends(get_db)):
+    """
+    Get all company records from the company collection
+
+    - Args: 
+        category(str): the category of the company
+
+    - Returns:
+        list of all the company object within the collection companies by category
+    """
+    
+    return CompanyRepository(db_session).get_by_category(category)
