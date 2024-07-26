@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar.vue";
 
 <template>
   <div>
-    <h1>Title of stuff</h1>
+    <h1>Filters</h1>
     <hr />
   </div>
   <Navbar />
@@ -12,16 +12,11 @@ import Navbar from "./components/Navbar.vue";
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+h1 {
+  margin: 0 0 1rem; /* Space below the title */
+  text-align: center; /* Center align title */
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+hr {
+  margin: 0 0 1rem; /* Space below the horizontal rule */
 }
 </style>

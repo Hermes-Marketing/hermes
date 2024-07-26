@@ -2,12 +2,12 @@
   <nav class="navbar">
     <div class="navbar-brand">
       <router-link to="/" class="navbar-item">Hermes</router-link>
+      <router-link to="/admin" class="navbar-item">
+        <i class="fas fa-user-shield"></i> Admin
+      </router-link>
     </div>
     <div class="navbar-menu">
       <div class="navbar-start">
-        <router-link to="/admin" class="navbar-item">
-          <i class="fas fa-user-shield"></i> Admin
-        </router-link>
         <router-link to="/" class="navbar-item">
           <i class="fas fa-cocktail"></i> Bar
         </router-link>
@@ -49,7 +49,8 @@ export default {
 .navbar-item {
   color: #fff;
   text-decoration: none;
-  margin: 0 0.5rem;
+  margin: 0 2rem;
+  align-items: stretch;
 }
 .navbar-item:hover {
   text-decoration: underline;
