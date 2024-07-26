@@ -32,7 +32,7 @@ async def get_company_by_id(id: str, db_session=Depends(get_db)):
     """
     Get a single company record from the company collection by its document id
 
-    - Args: id: str
+    - Args: id(str): The document id of the company to retrieve
 
     - Returns:
         Returns a single company object from the collection companies
