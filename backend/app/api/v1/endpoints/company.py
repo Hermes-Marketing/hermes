@@ -26,3 +26,16 @@ async def get_all_companies(db_session=Depends(get_db)):
     """
     
     return CompanyRepository(db_session).get_all_companies()
+
+@router.get("/{id}", status_code=status.HTTP_200_OK, response_model=Company)
+async def get_company_by_id(id: str, db_session=Depends(get_db)):
+    """
+    Get a single company record from the company collection by its document id
+
+    - Args: collection_name: str
+
+    - Returns:
+        Returns a single company object from the collection companies
+    """
+    
+    return CompanyRepository(db_session).get_single(id)
