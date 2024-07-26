@@ -8,16 +8,24 @@
         <router-link to="/admin" class="navbar-item">
           <i class="fas fa-user-shield"></i> Admin
         </router-link>
-        <a class="navbar-item"> <i class="fas fa-cocktail"></i> Bar </a>
-        <a class="navbar-item">
+        <router-link to="/" class="navbar-item">
+          <i class="fas fa-cocktail"></i> Bar
+        </router-link>
+        <router-link to="/" class="navbar-item">
           <i class="fas fa-hard-hat"></i> Construction
-        </a>
-        <a class="navbar-item"> <i class="fas fa-utensils"></i> Food </a>
-        <a class="navbar-item"> <i class="fas fa-balance-scale"></i> Legal </a>
-        <a class="navbar-item">
+        </router-link>
+        <router-link to="/" class="navbar-item">
+          <i class="fas fa-utensils"></i> Food
+        </router-link>
+        <router-link to="/" class="navbar-item">
+          <i class="fas fa-balance-scale"></i> Legal
+        </router-link>
+        <router-link to="/" class="navbar-item">
           <i class="fas fa-utensil-spoon"></i> Restaurant
-        </a>
-        <a class="navbar-item"> <i class="fas fa-wine-bottle"></i> Wine </a>
+        </router-link>
+        <router-link to="/" class="navbar-item">
+          <i class="fas fa-wine-bottle"></i> Wine
+        </router-link>
       </div>
     </div>
   </nav>
