@@ -7,7 +7,9 @@
 from typing import List
 from app.core.main import AppRepository
 from app.models.company import Company
+from google.cloud.firestore_v1.base_query import FieldFilter
 import logging
+from fastapi import HTTPException, status
 
 
 class CompanyRepository(AppRepository):
@@ -69,13 +71,15 @@ class CompanyRepository(AppRepository):
         """
         companies = []
         try:
-            docs = self.db.collection('companies').where('state', '==', state).stream()
-            logging.info("Found %s companies in %s", len(docs), state)
-            logging.info("Docs: %s", docs)
+            docs = list(self.db.collection('companies').where(filter=FieldFilter('state', '==', state)).stream())
             if not docs:
-                raise Exception(f"No companies found in {state}")
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"No companies found in {state}"
+                )
             for doc in docs:
                 company_data = doc.to_dict()
+                logging.info("Company Data: %s", company_data)
                 company = Company(
                     firestore_id=doc.id,
                     category=company_data.get('category'),
