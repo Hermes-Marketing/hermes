@@ -70,6 +70,8 @@ class CompanyRepository(AppRepository):
         companies = []
         try:
             docs = self.db.collection('companies').where('state', '==', state).stream()
+            logging.info("Found %s companies in %s", len(docs), state)
+            logging.info("Docs: %s", docs)
             if not docs:
                 raise Exception(f"No companies found in {state}")
             for doc in docs:
