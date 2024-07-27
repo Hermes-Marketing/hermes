@@ -7,10 +7,53 @@
 from typing import List
 from app.core.main import AppRepository
 from app.models.company import Company
+from app.config.settings import get_settings
+from fastapi import HTTPException, status
 import logging
-
+settings = get_settings()
 
 class CompanyRepository(AppRepository):
+    def get_single(self, id: str) -> Company:
+        """
+        Returns a single company record from the company collection by its document id
+
+        Args:
+            id (str): The document id of the company to retrieve
+
+        Returns:
+            Company: The company object from the collection companies
+
+        Raises:
+            Exception: If the company does not exist
+        """
+        doc = self.db.collection(settings.COMPANY_COLLECTION).document(id).get()
+        if not doc.exists:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Company not found")
+        return Company(
+            firestore_id=doc.id,
+            category=doc.get('category'),
+            sub_category=doc.get('subcategory'),
+            description=doc.get('description'),
+            first_name=doc.get('first_name'),
+            last_name=doc.get('last_name'),
+            email_address=doc.get('email_address'),
+            phone_number=doc.get('phone_number'),
+            brothers_role=doc.get('brothers_role'),
+            business_name=doc.get('business_name'),
+            business_location=doc.get('business_location'),
+            website=doc.get('website'),
+            chapter_affiliation=doc.get('chapter_affiliation'),
+            university_affiliation=doc.get('university_affiliation'),
+            street_address=doc.get('street_address'),
+            city=doc.get('city'),
+            state=doc.get('state'),
+            zip_code=doc.get('zip_code'),
+            country=doc.get('country'),
+            deleted_at=doc.get('deleted_at')
+        )
+           
+        
+
     def get_all_companies(self) -> List[Company]:
         """
         Get all companies from the specified collection.
@@ -23,7 +66,7 @@ class CompanyRepository(AppRepository):
         """
         companies = []
         try:
-            docs = self.db.collection('companies').stream()
+            docs = self.db.collection(settings.COMPANY_COLLECTION).stream()
             for doc in docs:
                 company_data = doc.to_dict()
                 company = Company(
