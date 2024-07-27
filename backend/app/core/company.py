@@ -7,6 +7,7 @@
 from typing import List
 from app.core.main import AppRepository
 from app.models.company import Company
+from google.cloud.firestore_v1 import FieldFilter
 from app.config.settings import get_settings
 from fastapi import HTTPException, status
 import logging
@@ -97,3 +98,57 @@ class CompanyRepository(AppRepository):
             raise e
 
         return companies
+
+    def get_by_category(self, category: str) -> List[Company]:
+        """
+        Get all companies from the specified collection by category.
+
+        Args:
+            category (str): The category of the company to query.
+
+        Returns:
+            List[Company]: A list of all companies in the company collection by category
+        
+        Raises:
+            Exception(404): An error occurred while fetching the companies
+        """
+        companies = []
+        try:
+            docs = list(self.db.collection('companies').where(filter=FieldFilter('category', '==', category)).stream())
+            if not docs:
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No companies found for category: {category}")
+            for doc in docs:
+                company_data = doc.to_dict()
+                company = Company(
+                    firestore_id=doc.id,
+                    category=company_data.get('category'),
+                    sub_category=company_data.get('subcategory'),
+                    description=company_data.get('description'),
+                    first_name=company_data.get('first_name'),
+                    last_name=company_data.get('last_name'),
+                    email_address=company_data.get('email_address'),
+                    phone_number=company_data.get('phone_number'),
+                    brothers_role=company_data.get('brothers_role'),
+                    business_name=company_data.get('business_name'),
+                    business_location=company_data.get('business_location'),
+                    website=company_data.get('website'),
+                    chapter_affiliation=company_data.get('chapter_affiliation'),
+                    university_affiliation=company_data.get('university_affiliation'),
+                    street_address=company_data.get('street_address'),
+                    city=company_data.get('city'),
+                    state=company_data.get('state'),
+                    zip_code=company_data.get('zip_code'),
+                    country=company_data.get('country'),
+                    deleted_at=company_data.get('deleted_at')
+                )
+                companies.append(company)
+        except HTTPException as http_exc:
+            logging.error("HTTP error occurred: %s", http_exc.detail)
+            raise http_exc
+        except Exception as e:
+            logging.error("An unexpected error occurred while fetching companies for category '%s': %s", category, e)
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="An unexpected error occurred while fetching companies")
+
+        return companies
+
+    
