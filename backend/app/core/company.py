@@ -142,9 +142,12 @@ class CompanyRepository(AppRepository):
                     deleted_at=company_data.get('deleted_at')
                 )
                 companies.append(company)
+        except HTTPException as http_exc:
+            logging.error("HTTP error occurred: %s", http_exc.detail)
+            raise http_exc
         except Exception as e:
-            logging.error("Error: %s", e)
-            raise e
+            logging.error("An unexpected error occurred while fetching companies for category '%s': %s", category, e)
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="An unexpected error occurred while fetching companies")
 
         return companies
 
