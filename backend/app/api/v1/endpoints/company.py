@@ -82,3 +82,18 @@ async def get_company_by_id(id: str, db_session=Depends(get_db)):
     """
 
     return CompanyRepository(db_session).get_single(id)
+
+@router.delete(
+    "/{id}", status_code=status.HTTP_204_NO_CONTENT
+)
+async def delete_company(id: str, db_session=Depends(get_db)):
+    """
+    Delete a single company record from the company collection by its document id
+
+    - Args: id(str): The document id of the company to delete
+
+    - Returns:
+        Returns a 204 status code if the company was successfully deleted
+    """
+
+    return CompanyRepository(db_session).delete_company(id)
