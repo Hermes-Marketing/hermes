@@ -3,3 +3,6 @@ hermes_back/
 
 # Environment variables
 .env
+
+# Compiled Python files
+__pycache__/
