@@ -131,7 +131,7 @@ class CompanyRepository(AppRepository):
         companies = []
         try:
             docs = list(
-                self.db.collection("companies")
+                self.db.collection(settings.COMPANY_COLLECTION)
                 .where(filter=FieldFilter("state", "==", state))
                 .stream()
             )
@@ -172,9 +172,19 @@ class CompanyRepository(AppRepository):
                     deleted_at=company_data.get("deleted_at"),
                 )
                 companies.append(company)
+        except HTTPException as http_exc:
+            logging.error("HTTP error occurred: %s", http_exc.detail)
+            raise http_exc
         except Exception as e:
-            logging.error("Error: %s", e)
-            raise e
+            logging.error(
+                "An unexpected error occurred while fetching companies for state '%s': %s",
+                state,
+                e,
+            )
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"An unexpected error occurred while fetching companies in state: {state}",
+            )
 
         return companies
 
