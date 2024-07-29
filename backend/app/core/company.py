@@ -10,8 +10,9 @@ from app.core.main import AppRepository
 from app.models.company import Company
 from google.cloud.firestore_v1 import FieldFilter
 from app.config.settings import get_settings
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, Response
 import logging
+from datetime import datetime
 
 settings = get_settings()
 
@@ -259,3 +260,26 @@ class CompanyRepository(AppRepository):
             )
 
         return companies
+    
+    def delete_company(self, id: str) -> None:
+        """
+        Delete a single company record from the company collection by its document id
+
+        Args:
+            id (str): The document id of the company to delete
+
+        Returns:
+            Response: Returns a 204 status code if the company was successfully deleted
+        """
+        company = self.get_single(id)
+        company.deleted_at = datetime.now() 
+
+        try:
+            self.db.collection(settings.COMPANY_COLLECTION).document(id).set(company.dict())
+
+        except Exception:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"An unexpected error occurred while deleting company: {id}",
+            )
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
