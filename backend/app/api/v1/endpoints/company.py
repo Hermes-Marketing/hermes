@@ -31,7 +31,7 @@ async def get_all_companies(db_session=Depends(get_db)):
 
 
 @router.get(
-    "/{state}",
+    "/state/{state}",
     status_code=status.HTTP_200_OK,
     response_model=List[Company],
 )
@@ -50,7 +50,7 @@ async def get_companies_by_state(state: str, db_session=Depends(get_db)):
 
 
 @router.get(
-    "/{category}",
+    "/category/{category}",
     status_code=status.HTTP_200_OK,
     response_model=List[Company],
 )
@@ -69,7 +69,7 @@ async def get_by_category(category: str, db_session=Depends(get_db)):
 
 
 @router.get(
-    "/{id}", status_code=status.HTTP_200_OK, response_model=Company
+    "/id/{id}", status_code=status.HTTP_200_OK, response_model=Company
 )
 async def get_company_by_id(id: str, db_session=Depends(get_db)):
     """
@@ -83,8 +83,9 @@ async def get_company_by_id(id: str, db_session=Depends(get_db)):
 
     return CompanyRepository(db_session).get_single(id)
 
+
 @router.delete(
-    "/{id}", status_code=status.HTTP_204_NO_CONTENT
+    "/id/{id}", status_code=status.HTTP_204_NO_CONTENT
 )
 async def delete_company(id: str, db_session=Depends(get_db)):
     """
