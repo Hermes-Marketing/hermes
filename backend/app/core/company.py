@@ -269,7 +269,7 @@ class CompanyRepository(AppRepository):
             id (str): The document id of the company to delete
 
         Returns:
-            None
+            Response: Returns a 204 status code if the company was successfully deleted
         """
         company = self.get_single(id)
         company.deleted_at = datetime.now() 
