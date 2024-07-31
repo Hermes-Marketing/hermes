@@ -10,7 +10,7 @@ from typing import Optional
 
 class Company(BaseModel):
     category: str
-    sub_category: str
+    subcategory: str
     description: str
     first_name: str
     last_name: str

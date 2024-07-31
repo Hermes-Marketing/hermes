@@ -11,24 +11,24 @@ from typing import Optional
 class Company(BaseModel):
     firestore_id: str
     category: str
-    sub_category: Optional[str] = None
+    subcategory: Optional[str]
     description: str
     first_name: str
     last_name: str
     email_address: str
     phone_number: str
-    brothers_role: Optional[str] = None
+    brothers_role: Optional[str] 
     business_name: str
     business_location: str
-    website: Optional[str] = None
-    chapter_affiliation: Optional[str] = None
-    university_affiliation: Optional[str] = None
+    website: Optional[str] 
+    chapter_affiliation: Optional[str] 
+    university_affiliation: Optional[str] 
     street_address: str
     city: str
     state: str
-    zip_code: Optional[str] = None
+    zip_code: Optional[str] 
     country: str
-    deleted_at: Optional[str] = None 
+    deleted_at: Optional[str] 
         
     class Config:
         orm_mode = True
