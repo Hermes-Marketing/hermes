@@ -1,6 +1,8 @@
 # Ignore all JSON files
 *.json
 
+node_modules
+
 # Ignore all TXT files
 *.txt
 # exception: requirements.txt
