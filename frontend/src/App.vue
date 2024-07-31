@@ -1,5 +1,5 @@
 <script setup>
-import Navbar from "./components/Navbar.vue";
+import Navbar from "@/components/Navbar.vue";
 </script>
 
 <template>
@@ -13,10 +13,10 @@ import Navbar from "./components/Navbar.vue";
 
 <style scoped>
 h1 {
-  margin: 0 0 1rem; /* Space below the title */
-  text-align: center; /* Center align title */
+  margin: 0 0 1rem;
+  text-align: center;
 }
 hr {
-  margin: 0 0 1rem; /* Space below the horizontal rule */
+  margin: 0 0 1rem;
 }
 </style>
