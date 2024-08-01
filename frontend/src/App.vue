@@ -1,22 +1,43 @@
-<script setup>
-import Navbar from "@/components/Navbar.vue";
-</script>
-
 <template>
   <div>
-    <h1>Filters</h1>
-    <hr />
+    <Navbar
+      @categorySelected="handleCategorySelected"
+      @subCategorySelected="handleSubCategorySelected"
+    />
+    <router-view :selected="selected" />
   </div>
-  <Navbar />
-  <router-view />
 </template>
 
-<style scoped>
-h1 {
-  margin: 0 0 1rem;
-  text-align: center;
-}
-hr {
-  margin: 0 0 1rem;
-}
-</style>
+<script>
+import Navbar from "@/components/Navbar.vue";
+import { ref, provide } from "vue";
+
+export default {
+  name: "App",
+  components: {
+    Navbar,
+  },
+  setup() {
+    const selected = ref({
+      category: null,
+      subCategory: null,
+    });
+
+    const handleCategorySelected = (newSelection) => {
+      selected.value = newSelection;
+    };
+
+    const handleSubCategorySelected = (newSelection) => {
+      selected.value = newSelection;
+    };
+    // Provide selected state to child components
+    provide("selected", selected);
+
+    return {
+      selected,
+      handleCategorySelected,
+      handleSubCategorySelected,
+    };
+  },
+};
+</script>

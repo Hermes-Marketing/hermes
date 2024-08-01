@@ -119,17 +119,20 @@ export default {
       this.selected.category = category;
       this.selected.subCategory = null;
       this.showSubNavbar = true;
+      this.$emit("categorySelected", this.selected);
       console.log(this.selected);
     },
     handleSubCategorySelected(subCategory) {
       this.selected.subCategory = subCategory;
       this.showSubNavbar = false;
+      this.$emit("subCategorySelected", this.selected);
       console.log(this.selected);
     },
     resetSelection() {
       this.selected.category = null;
       this.selected.subCategory = null;
       this.showSubNavbar = false;
+      this.$emit("categorySelected", this.selected);
       console.log(this.selected);
     },
     handleClickOutside(event) {
