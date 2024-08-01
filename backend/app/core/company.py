@@ -11,7 +11,6 @@ from app.models.company import Company
 from google.cloud.firestore_v1 import FieldFilter
 from app.config.settings import get_settings
 from fastapi import HTTPException, status, Response
-import logging
 from datetime import datetime
 
 settings = get_settings()
@@ -283,8 +282,7 @@ class CompanyRepository(AppRepository):
             new_company = self.get_single(company_id)
             return new_company
 
-        except Exception as e:
-            logging.error("Error: %s", e)
+        except Exception:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="An unexpected error occurred while creating the company",
