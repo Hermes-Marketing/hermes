@@ -117,17 +117,17 @@ export default {
   methods: {
     selectCategory(category) {
       this.selected.category = category;
-      this.selected.subCategory = null; // Reset subcategory when main category changes
-      this.showSubNavbar = true; // Show sub-navbar
+      this.selected.subCategory = null;
+      this.showSubNavbar = true;
       console.log(this.selected);
     },
     handleSubCategorySelected(subCategory) {
       this.selected.subCategory = subCategory;
-      this.showSubNavbar = false; // Hide sub-navbar
+      this.showSubNavbar = false;
       console.log(this.selected);
     },
     resetSelection() {
-      this.selected.category = null; // Hide sub-navbar when Hermes is clicked
+      this.selected.category = null;
       this.selected.subCategory = null;
       this.showSubNavbar = false;
       console.log(this.selected);
