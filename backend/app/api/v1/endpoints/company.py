@@ -96,3 +96,20 @@ async def delete_company(id: str, db_session=Depends(get_db)):
     """
 
     return CompanyRepository(db_session).delete_company(id)
+
+
+@router.post(
+    "/", status_code=status.HTTP_201_CREATED, response_model=Company
+)
+async def create_company(company: Company, db_session=Depends(get_db)):
+    """
+    Create a new company record in the company collection
+
+    - Args: company (Company): The company object to create
+
+    - Returns:
+        Returns the newly created company object
+    """
+
+    return CompanyRepository(db_session).create_company(company)
+

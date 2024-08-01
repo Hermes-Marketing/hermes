@@ -40,25 +40,7 @@ class CompanyRepository(AppRepository):
             )
         return Company(
             firestore_id=doc.id,
-            category=doc.get("category"),
-            sub_category=doc.get("subcategory"),
-            description=doc.get("description"),
-            first_name=doc.get("first_name"),
-            last_name=doc.get("last_name"),
-            email_address=doc.get("email_address"),
-            phone_number=doc.get("phone_number"),
-            brothers_role=doc.get("brothers_role"),
-            business_name=doc.get("business_name"),
-            business_location=doc.get("business_location"),
-            website=doc.get("website"),
-            chapter_affiliation=doc.get("chapter_affiliation"),
-            university_affiliation=doc.get("university_affiliation"),
-            street_address=doc.get("street_address"),
-            city=doc.get("city"),
-            state=doc.get("state"),
-            zip_code=doc.get("zip_code"),
-            country=doc.get("country"),
-            deleted_at=doc.get("deleted_at"),
+            **doc.to_dict()
         )
 
     def get_all_companies(self) -> List[Company]:
@@ -281,3 +263,29 @@ class CompanyRepository(AppRepository):
                 detail=f"An unexpected error occurred while deleting company: {id}",
             )
         return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+    def create_company(self, company: Company) -> Company:
+        """
+        Create a new company record in the company collection
+
+        Args:
+            company (Company): The company object to create
+
+        Returns:
+            Company: The newly created company object
+        """
+        try:
+            doc_ref = self.db.collection(settings.COMPANY_COLLECTION).add(company.dict())
+            company_id = doc_ref[1].id
+            new_company = self.get_single(company_id)
+            return new_company
+
+        except Exception as e:
+            logging.error("Error: %s", e)
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="An unexpected error occurred while creating the company",
+            )
+
+    

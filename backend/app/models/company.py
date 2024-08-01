@@ -10,7 +10,6 @@ from datetime import datetime
 
 
 class Company(BaseModel):
-    firestore_id: str
     category: Optional[str] = None
     sub_category: Optional[str] = None
     description: Optional[str] = None
