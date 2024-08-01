@@ -96,3 +96,19 @@ async def delete_company(id: str, db_session=Depends(get_db)):
     """
 
     return CompanyRepository(db_session).delete_company(id)
+
+
+@router.put("/id/{id}", status_code=status.HTTP_200_OK)
+async def update_company(id: str, company: Company, db_session=Depends(get_db)):
+    """
+    Update a single company record from the company collection by its document id
+
+    - Args:
+        id(str): The document id of the company to update
+        company(Company): The updated company object
+
+    - Returns:
+        Returns a 200 status code if the company was successfully updated
+    """
+
+    return CompanyRepository(db_session).update_company(id, company)

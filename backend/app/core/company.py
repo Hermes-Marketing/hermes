@@ -281,3 +281,27 @@ class CompanyRepository(AppRepository):
                 detail=f"An unexpected error occurred while deleting company: {id}",
             )
         return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+    def update_company(self, id: str, company: Company) -> Company:
+        """
+        Update a single company record from the company collection by its document id
+
+        Args:
+            id (str): The document id of the company to update
+            company (Company): The company object to update
+
+        Returns:
+            Company: The updated company object
+
+        Raises:
+            HTTPException: If an error occurs while updating the company
+        """
+        try:
+            self.db.collection(settings.COMPANY_COLLECTION).document(id).set(company.dict())
+        except Exception as e:
+            logging.error("Error: %s", e)
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"An unexpected error occurred while updating company: {id}",
+            )
+        return company
