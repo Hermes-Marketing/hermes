@@ -13,7 +13,6 @@ from app.config.settings import get_settings
 from fastapi import HTTPException, status, Response
 import logging
 from datetime import datetime
-
 settings = get_settings()
 
 
@@ -32,11 +31,9 @@ class CompanyRepository(AppRepository):
             Exception: If the company does not exist
         """
         doc = (
-            self.db.collection(settings.COMPANY_COLLECTION)
-            .document(id)
-            .get()
+            self.db.collection(settings.COMPANY_COLLECTION).document(id).get()
         )
-        if not doc.exists:
+        if not doc:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Company not found",
@@ -89,7 +86,7 @@ class CompanyRepository(AppRepository):
                     state=company_data.get("state"),
                     zip_code=company_data.get("zip_code"),
                     country=company_data.get("country"),
-                    deleted_at=company_data.get("deleted_at"),
+                    deleted_at=company_data.get("deleted_at").to_datetime() if company_data.get("deleted_at") else None,
                 )
                 companies.append(company)
         except Exception as e:
@@ -154,6 +151,7 @@ class CompanyRepository(AppRepository):
                     country=company_data.get("country"),
                     deleted_at=company_data.get("deleted_at"),
                 )
+                
                 companies.append(company)
         except HTTPException as http_exc:
             logging.error("HTTP error occurred: %s", http_exc.detail)
