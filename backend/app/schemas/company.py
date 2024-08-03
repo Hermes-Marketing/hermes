@@ -28,3 +28,4 @@ class Company(BaseModel):
     zip_code: Optional[str] = None
     country: Optional[str] = None
     deleted_at: Optional[str] = None
+

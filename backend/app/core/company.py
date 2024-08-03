@@ -11,7 +11,6 @@ from app.models.company import Company
 from google.cloud.firestore_v1 import FieldFilter
 from app.config.settings import get_settings
 from fastapi import HTTPException, status, Response
-import logging
 from datetime import datetime
 settings = get_settings()
 
@@ -40,25 +39,7 @@ class CompanyRepository(AppRepository):
             )
         return Company(
             firestore_id=doc.id,
-            category=doc.get("category"),
-            sub_category=doc.get("subcategory"),
-            description=doc.get("description"),
-            first_name=doc.get("first_name"),
-            last_name=doc.get("last_name"),
-            email_address=doc.get("email_address"),
-            phone_number=doc.get("phone_number"),
-            brothers_role=doc.get("brothers_role"),
-            business_name=doc.get("business_name"),
-            business_location=doc.get("business_location"),
-            website=doc.get("website"),
-            chapter_affiliation=doc.get("chapter_affiliation"),
-            university_affiliation=doc.get("university_affiliation"),
-            street_address=doc.get("street_address"),
-            city=doc.get("city"),
-            state=doc.get("state"),
-            zip_code=doc.get("zip_code"),
-            country=doc.get("country"),
-            deleted_at=doc.get("deleted_at"),
+            **doc.to_dict()
         )
 
     def get_all_companies(self) -> List[Company]:
@@ -282,24 +263,27 @@ class CompanyRepository(AppRepository):
             )
         return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-    def update_company(self, id: str, company: Company) -> Company:
+
+    def create_company(self, company: Company) -> Company:
         """
-        Update a single company record from the company collection by its document id
+        Create a new company record in the company collection
 
         Args:
-            id (str): The document id of the company to update
-            company (Company): The company object that will be updated
+            company (Company): The company object to create
 
         Returns:
-            Company: The updated company object
+            Company: The newly created company object
         """
         try:
-            self.db.collection(settings.COMPANY_COLLECTION).document(id).update(company.dict())
-            updated_company = self.get_single(id)
-            return updated_company
+            doc_ref = self.db.collection(settings.COMPANY_COLLECTION).add(company.dict())
+            company_id = doc_ref[1].id
+            new_company = self.get_single(company_id)
+            return new_company
 
         except Exception:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"An unexpected error occurred while updating company: {id}",
+                detail="An unexpected error occurred while creating the company",
             )
+
+    
