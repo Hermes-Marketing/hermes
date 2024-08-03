@@ -288,20 +288,18 @@ class CompanyRepository(AppRepository):
 
         Args:
             id (str): The document id of the company to update
-            company (Company): The company object to update
+            company (Company): The company object that will be updated
 
         Returns:
             Company: The updated company object
-
-        Raises:
-            HTTPException: If an error occurs while updating the company
         """
         try:
-            self.db.collection(settings.COMPANY_COLLECTION).document(id).set(company.dict())
-        except Exception as e:
-            logging.error("Error: %s", e)
+            self.db.collection(settings.COMPANY_COLLECTION).document(id).update(company.dict())
+            updated_company = self.get_single(id)
+            return updated_company
+
+        except Exception:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"An unexpected error occurred while updating company: {id}",
             )
-        return company

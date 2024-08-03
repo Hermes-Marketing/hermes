@@ -108,7 +108,7 @@ async def update_company(id: str, company: Company, db_session=Depends(get_db)):
         company(Company): The updated company object
 
     - Returns:
-        Returns a 200 status code if the company was successfully updated
+        Returns the updated company object 
     """
 
     return CompanyRepository(db_session).update_company(id, company)
