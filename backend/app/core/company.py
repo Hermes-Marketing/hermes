@@ -12,6 +12,7 @@ from google.cloud.firestore_v1 import FieldFilter
 from app.config.settings import get_settings
 from fastapi import HTTPException, status, Response
 from datetime import datetime
+import logging
 settings = get_settings()
 
 
@@ -32,7 +33,7 @@ class CompanyRepository(AppRepository):
         doc = (
             self.db.collection(settings.COMPANY_COLLECTION).document(id).get()
         )
-        if not doc:
+        if not doc.exists:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Company not found",
@@ -88,9 +89,11 @@ class CompanyRepository(AppRepository):
                     deleted_at=company_data.get("deleted_at").to_datetime() if company_data.get("deleted_at") else None,
                 )
                 companies.append(company)
-        except Exception as e:
-            logging.error("Error: %s", e)
-            raise e
+        except Exception:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="An unexpected error occurred while fetching companies",
+            )
 
         return companies
 
@@ -225,14 +228,8 @@ class CompanyRepository(AppRepository):
                 )
                 companies.append(company)
         except HTTPException as http_exc:
-            logging.error("HTTP error occurred: %s", http_exc.detail)
             raise http_exc
         except Exception as e:
-            logging.error(
-                "An unexpected error occurred while fetching companies for category '%s': %s",
-                category,
-                e,
-            )
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="An unexpected error occurred while fetching companies",
@@ -286,4 +283,39 @@ class CompanyRepository(AppRepository):
                 detail="An unexpected error occurred while creating the company",
             )
 
-    
+    def update_company(self, id: str, company: Company) -> Company:
+        """
+        Update a single company record from the company collection by its document id
+
+        Args:
+            id (str): The document id of the company to update
+            company (Company): The company object that will be updated
+
+        Returns:
+            Company: The updated company object
+        """
+        try:
+            updated_company = self.get_single(id)
+            if isinstance(updated_company, HTTPException):
+                raise updated_company
+            self.db.collection(settings.COMPANY_COLLECTION).document(id).update(company.dict())
+            return self.get_single(id)
+
+        except HTTPException as e:
+            if e.status_code == 404:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"Company not found: {id}",
+                )
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=f"An unexpected error occurred while updating company: {id}",
+                )
+
+        except Exception as e:
+            logging.error("An unexpected error occurred while updating company: %s", e)
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"An unexpected error occurred while updating company: {id}",
+            )
