@@ -12,7 +12,6 @@ from google.cloud.firestore_v1 import FieldFilter
 from app.config.settings import get_settings
 from fastapi import HTTPException, status, Response
 from datetime import datetime
-import logging
 settings = get_settings()
 
 
@@ -124,7 +123,6 @@ class CompanyRepository(AppRepository):
                 )
             for doc in docs:
                 company_data = doc.to_dict()
-                logging.info("Company Data: %s", company_data)
                 company = Company(
                     firestore_id=doc.id,
                     category=company_data.get("category"),
@@ -156,14 +154,8 @@ class CompanyRepository(AppRepository):
                 
                 companies.append(company)
         except HTTPException as http_exc:
-            logging.error("HTTP error occurred: %s", http_exc.detail)
             raise http_exc
-        except Exception as e:
-            logging.error(
-                "An unexpected error occurred while fetching companies for state '%s': %s",
-                state,
-                e,
-            )
+        except Exception:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"An unexpected error occurred while fetching companies in state: {state}",
@@ -314,7 +306,6 @@ class CompanyRepository(AppRepository):
                 )
 
         except Exception as e:
-            logging.error("An unexpected error occurred while updating company: %s", e)
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"An unexpected error occurred while updating company: {id}",
