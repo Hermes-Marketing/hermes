@@ -11,6 +11,7 @@ const routes = [
 ];
 
 const router = createRouter({
+  base: '/hermes',  // Base URL of your app
   history: createWebHistory(),
   routes,
 });
