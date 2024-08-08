@@ -1,5 +1,5 @@
 <template>
-  <div class="card" @click="goToWebsite">
+  <div class="card" @click="goToCardView">
     <img :src="cardData.image" alt="Card Image" class="card-image" />
     <div class="card-details">
       <h3>{{ cardData.name }}</h3>
@@ -18,10 +18,11 @@ export default {
     },
   },
   methods: {
-    goToWebsite() {
-      if (this.cardData.website) {
-        window.location.href = this.cardData.website;
-      }
+    goToCardView() {
+      this.$router.push({
+        name: "CardView",
+        params: { id: this.cardData.id },
+      });
     },
   },
 };
