@@ -17,11 +17,11 @@ const routes = [
       cards: route.params.cards, // Ensure cards is passed in the route params
     }),
   },
-  { path: "/:catchAll", name: "NotFound", component: NotFound },
+  { path: "/:catchAll(.*)", name: "NotFound", component: NotFound },  // Adjusted to correctly match all routes
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/hermes'),  // Pass the base path to createWebHistory
   routes,
 });
 

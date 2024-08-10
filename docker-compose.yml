@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   frontend:
     container_name: frontend
@@ -12,6 +13,8 @@ services:
       - /app/node_modules
     depends_on:
       - backend
+    networks:
+      - app-network
 
   backend:
     container_name: backend
@@ -22,5 +25,11 @@ services:
     volumes:
       - ./backend:/app
       - ./frontend/dist:/app/frontend/dist
+    networks:
+      - app-network
     environment:
       - PYTHONUNBUFFERED=1
+  
+networks:
+  app-network:
+    driver: bridge
