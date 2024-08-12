@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   frontend:
-    container_name: frontend
+    container_name: $ENV_frontend
     build:
       context: ./frontend
       target: development
@@ -21,7 +21,7 @@ services:
       - app-network
 
   backend:
-    container_name: backend
+    container_name: $ENV_backend
     build:
       context: ./backend
       args:
