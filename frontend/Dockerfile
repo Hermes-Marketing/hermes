@@ -12,6 +12,9 @@ FROM node:16.16.0 AS development
 # Set working directory
 WORKDIR /app
 
+# Declare the build argument
+ARG HERMES_FE_PORT
+
 # Install app dependencies
 COPY package*.json ./
 RUN npm install
@@ -26,5 +29,5 @@ RUN chown -R node:node /app/node_modules
 USER node
 
 # Expose port and start the app
-EXPOSE 8080
+EXPOSE $HERMES_FE_PORT
 CMD ["npm", "run", "dev"]

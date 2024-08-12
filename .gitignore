@@ -8,3 +8,6 @@ node_modules
 *.txt
 # exception: requirements.txt
 !requirements.txt
+
+# Environment variables
+.env

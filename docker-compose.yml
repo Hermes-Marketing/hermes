@@ -6,8 +6,12 @@ services:
     build:
       context: ./frontend
       target: development
+      args:
+        HERMES_FE_PORT: ${HERMES_FE_PORT} # Pass the environment variable as a build argument
     ports:
-      - "8080:8080"
+      - ${HERMES_FE_PORT}:${HERMES_FE_PORT}
+    environment:
+      - HERMES_FE_PORT=${HERMES_FE_PORT}
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -20,8 +24,12 @@ services:
     container_name: backend
     build:
       context: ./backend
+      args:
+        HERMES_BE_PORT: ${HERMES_BE_PORT} # Pass the environment variable as a build argument
+    environment:
+      - HERMES_BE_PORT=${HERMES_BE_PORT}
     ports:
-      - "8000:8000"
+      - ${HERMES_BE_PORT}:${HERMES_BE_PORT}
     volumes:
       - ./backend:/app
       - ./frontend/dist:/app/frontend/dist
@@ -29,7 +37,7 @@ services:
       - app-network
     environment:
       - PYTHONUNBUFFERED=1
-  
+
 networks:
   app-network:
     driver: bridge
