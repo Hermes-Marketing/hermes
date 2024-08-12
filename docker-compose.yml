@@ -2,11 +2,11 @@ version: "3.8"
 
 services:
   frontend:
-    container_name: $ENV_frontend
+    container_name: ${ENV}_frontend
     build:
       context: ./frontend
       target: development
-      args:
+      args: 
         HERMES_FE_PORT: ${HERMES_FE_PORT} # Pass the environment variable as a build argument
     ports:
       - ${HERMES_FE_PORT}:${HERMES_FE_PORT}
@@ -21,7 +21,7 @@ services:
       - app-network
 
   backend:
-    container_name: $ENV_backend
+    container_name: ${ENV}_backend
     build:
       context: ./backend
       args:
