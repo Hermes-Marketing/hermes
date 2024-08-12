@@ -2,34 +2,33 @@ name: Deploy
 
 on:
   push:
-    branches:
-      - dev
-      - main
     tags:
-      - deploy
+      - 'deploy-site'  # This triggers the workflow only when a tag named 'deploy-site' is pushed
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.6.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy to server
-        if: contains(github.ref, 'refs/tags/deploy')
-        env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
-        run: |
-          BRANCH=$(echo "${GITHUB_REF#refs/heads/}")
-          if [ "$BRANCH" == "dev" ]; then
-            ssh $SSH_USER@$SSH_HOST 'bash -s' < /home/xbnrxout/dev_hermes_deploy.sh
-          elif [ "$BRANCH" == "main" ]; then
-            ssh $SSH_USER@$SSH_HOST 'bash -s' < /home/xbnrxout/main_hermes_deploy.sh
+    - name: Deploy to Server
+      run: |
+        if [[ "${GITHUB_REF}" == "refs/tags/deploy-site" ]]; then
+          BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          if [[ "$BRANCH" == "dev" ]]; then
+            echo "Deploying dev environment"
+            ssh -o StrictHostKeyChecking=no xbnrxout@xavrema.com "bash /home/xbnrxout/deploy_hermes.sh dev"
+          elif [[ "$BRANCH" == "main" ]]; then
+            echo "Deploying main environment"
+            ssh -o StrictHostKeyChecking=no xbnrxout@xavrema.com "bash /home/xbnrxout/deploy_hermes.sh main"
+          else
+            echo "No deployment configured for this branch"
           fi
+        fi
