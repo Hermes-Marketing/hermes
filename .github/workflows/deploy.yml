@@ -1,0 +1,35 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+    tags:
+      - deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.6.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to server
+        if: contains(github.ref, 'refs/tags/deploy')
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          BRANCH=$(echo "${GITHUB_REF#refs/heads/}")
+          if [ "$BRANCH" == "dev" ]; then
+            ssh $SSH_USER@$SSH_HOST 'bash -s' < /home/xbnrxout/dev_hermes_deploy.sh
+          elif [ "$BRANCH" == "main" ]; then
+            ssh $SSH_USER@$SSH_HOST 'bash -s' < /home/xbnrxout/main_hermes_deploy.sh
+          fi
