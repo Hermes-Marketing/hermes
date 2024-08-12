@@ -21,7 +21,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory('/hermes'),  // Pass the base path to createWebHistory
+  history: createWebHistory('/'),  // Pass the base path to createWebHistory
   routes,
 });
 
