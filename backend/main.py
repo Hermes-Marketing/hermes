@@ -24,4 +24,5 @@ for route in app.routes:
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    print(os.getenv('HERMES_BE_PORT'))
+    uvicorn.run(app, host="0.0.0.0", port=os.getenv('HERMES_BE_PORT'))
