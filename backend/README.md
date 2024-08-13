@@ -4,7 +4,7 @@
 
 Useful for testing apis
 
-http://localhost:8000/docs
+http://localhost:$HERMES_BE_PORT/docs
 
 # Test db connection
 
