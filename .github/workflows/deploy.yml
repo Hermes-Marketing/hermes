@@ -5,8 +5,6 @@ on:
     branches:
       - dev
       - main
-    tags:
-      - 'deploy-site'  # Use a pattern if you want to allow for specific tags like 'deploy-dev' or 'deploy-main'
 
 jobs:
   deploy:
@@ -22,23 +20,15 @@ jobs:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
     - name: Deploy to Server
+      if: env.DEPLOY == 'true'
       run: |
-        # Get the current branch
         BRANCH=$(git rev-parse --abbrev-ref HEAD)
-        # Get the latest tag for the commit
-        TAG=$(git describe --tags --exact-match 2>/dev/null || true)
-
-        # Check if a tag exists and the branch is either dev or main
-        if [[ -n "$TAG" ]]; then
-          if [[ "$BRANCH" == "dev" ]]; then
-            echo "Deploying dev environment"
-            ssh -o StrictHostKeyChecking=no xbnrxout@xavrema.com "bash /home/xbnrxout/deploy_hermes.sh dev"
-          elif [[ "$BRANCH" == "main" ]]; then
-            echo "Deploying main environment"
-            ssh -o StrictHostKeyChecking=no xbnrxout@xavrema.com "bash /home/xbnrxout/deploy_hermes.sh main"
-          else
-            echo "No deployment configured for this branch"
-          fi
+        if [[ "$BRANCH" == "dev" ]]; then
+          echo "Deploying dev environment"
+          ssh -o StrictHostKeyChecking=no xbnrxout@xavrema.com "bash /home/xbnrxout/deploy_hermes.sh dev"
+        elif [[ "$BRANCH" == "main" ]]; then
+          echo "Deploying main environment"
+          ssh -o StrictHostKeyChecking=no xbnrxout@xavrema.com "bash /home/xbnrxout/deploy_hermes.sh main"
         else
-          echo "No deployment tag found; skipping deployment"
+          echo "No deployment configured for this branch"
         fi
