@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "Admin",
+  name: "Admin-dev",
 };
 </script>
