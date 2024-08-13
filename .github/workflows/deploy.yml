@@ -2,8 +2,11 @@ name: Deploy
 
 on:
   push:
+    branches:
+      - dev
+      - main
     tags:
-      - 'deploy-site'  # This triggers the workflow only when a tag named 'deploy-site' is pushed
+      - 'deploy-site'  # Use a pattern if you want to allow for specific tags like 'deploy-dev' or 'deploy-main'
 
 jobs:
   deploy:
@@ -20,8 +23,13 @@ jobs:
 
     - name: Deploy to Server
       run: |
-        if [[ "${GITHUB_REF}" == "refs/tags/deploy-site" ]]; then
-          BRANCH=$(git rev-parse --abbrev-ref HEAD)
+        # Get the current branch
+        BRANCH=$(git rev-parse --abbrev-ref HEAD)
+        # Get the latest tag for the commit
+        TAG=$(git describe --tags --exact-match 2>/dev/null || true)
+
+        # Check if a tag exists and the branch is either dev or main
+        if [[ -n "$TAG" ]]; then
           if [[ "$BRANCH" == "dev" ]]; then
             echo "Deploying dev environment"
             ssh -o StrictHostKeyChecking=no xbnrxout@xavrema.com "bash /home/xbnrxout/deploy_hermes.sh dev"
@@ -31,4 +39,6 @@ jobs:
           else
             echo "No deployment configured for this branch"
           fi
+        else
+          echo "No deployment tag found; skipping deployment"
         fi
