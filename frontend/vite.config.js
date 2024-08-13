@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     host: true,
-    port: process.env.HERMES_FE_PORT,, // This is the port which we will use in docker
+    port: process.env.HERMES_FE_PORT, // This is the port which we will use in docker
     watch: {
       usePolling: true,
     },
