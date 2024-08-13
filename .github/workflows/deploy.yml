@@ -1,5 +1,5 @@
 name: Deploy
-
+env:DEPLOY: 'true'
 on:
   push:
     branches:
@@ -8,7 +8,6 @@ on:
 
 jobs:
   deploy:
-    env:DEPLOY: 'true'
     runs-on: ubuntu-latest
 
     steps:
