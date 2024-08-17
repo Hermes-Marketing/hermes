@@ -2,7 +2,7 @@ export const fetchAllCards = async () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   try {
     const response = await fetch(`${apiUrl}/v1/company/`, {
-      mode: "no-cors", // Will need to change
+      mode: "cors", // Will need to change
     });
     if (response.ok) {
       // Check if the response is JSON before parsing
