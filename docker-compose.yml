@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   frontend:
-    container_name: '${ENV}_frontend'
+    container_name: "${ENV}_frontend"
     build:
       context: ./frontend
       target: development
@@ -11,9 +11,9 @@ services:
     env_file:
       - ./.env
     ports:
-      - '${HERMES_FE_PORT}:${HERMES_FE_PORT}'
+      - "${HERMES_FE_PORT}:${HERMES_FE_PORT}"
     environment:
-      - 'HERMES_FE_PORT=${HERMES_FE_PORT}'
+      - "HERMES_FE_PORT=${HERMES_FE_PORT}"
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -23,7 +23,7 @@ services:
       - app-network
 
   backend:
-    container_name: '${ENV}_backend'
+    container_name: "${ENV}_backend"
     build:
       context: ./backend
       args:
@@ -31,10 +31,10 @@ services:
     env_file:
       - ./.env
     environment:
-      - 'HERMES_BE_PORT=${HERMES_BE_PORT}'
+      - "HERMES_BE_PORT=${HERMES_BE_PORT}"
       - PYTHONUNBUFFERED=1
     ports:
-      - '${HERMES_BE_PORT}:${HERMES_BE_PORT}'
+      - "${HERMES_BE_PORT}:${HERMES_BE_PORT}"
     volumes:
       - ./backend:/app
       - ./frontend/dist:/app/frontend/dist
