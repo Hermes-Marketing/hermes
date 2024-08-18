@@ -117,7 +117,12 @@ export default {
       },
     ]);
 
-    onMounted(fetchAllCards);
+    onMounted(async () => {
+      const fetchedCards = await fetchAllCards();
+      if (fetchedCards) {
+        cards.value = fetchedCards;
+      }
+    });
 
     provide("selected", selected);
     provide("cards", cards); // Providing cards at the app level
