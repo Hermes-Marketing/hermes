@@ -12,6 +12,8 @@ from google.cloud.firestore_v1 import FieldFilter
 from app.config.settings import get_settings
 from fastapi import HTTPException, status, Response
 from datetime import datetime
+import logging
+
 settings = get_settings()
 
 
@@ -30,24 +32,20 @@ class CompanyRepository(AppRepository):
             Exception: If the company does not exist
         """
         doc = (
-            self.db.collection(settings.COMPANY_COLLECTION).document(id).get()
+            self.db.collection(settings.COMPANY_COLLECTION)
+            .document(id)
+            .get()
         )
         if not doc.exists:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Company not found",
             )
-        return Company(
-            firestore_id=doc.id,
-            **doc.to_dict()
-        )
+        return Company(firestore_id=doc.id, **doc.to_dict())
 
     def get_all_companies(self) -> List[Company]:
         """
         Get all companies from the specified collection.
-
-        Args:
-            collection_name (str): The name of the collection to query.
 
         Returns:
             List[Company]: A list of all companies in the company collection
@@ -59,6 +57,13 @@ class CompanyRepository(AppRepository):
             ).stream()
             for doc in docs:
                 company_data = doc.to_dict()
+                deleted_at = company_data.get("deleted_at")
+                if deleted_at:
+                    try:
+                        deleted_at = datetime.fromisoformat(deleted_at)
+                    except ValueError:
+                        deleted_at = None
+
                 company = Company(
                     firestore_id=doc.id,
                     category=company_data.get("category"),
@@ -85,10 +90,11 @@ class CompanyRepository(AppRepository):
                     state=company_data.get("state"),
                     zip_code=company_data.get("zip_code"),
                     country=company_data.get("country"),
-                    deleted_at=company_data.get("deleted_at").to_datetime() if company_data.get("deleted_at") else None,
+                    deleted_at=deleted_at,
                 )
                 companies.append(company)
-        except Exception:
+        except Exception as e:
+            logging.error(e)
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="An unexpected error occurred while fetching companies",
@@ -151,7 +157,7 @@ class CompanyRepository(AppRepository):
                     country=company_data.get("country"),
                     deleted_at=company_data.get("deleted_at"),
                 )
-                
+
                 companies.append(company)
         except HTTPException as http_exc:
             raise http_exc
@@ -228,7 +234,7 @@ class CompanyRepository(AppRepository):
             )
 
         return companies
-    
+
     def delete_company(self, id: str) -> None:
         """
         Delete a single company record from the company collection by its document id
@@ -240,10 +246,12 @@ class CompanyRepository(AppRepository):
             Response: Returns a 204 status code if the company was successfully deleted
         """
         company = self.get_single(id)
-        company.deleted_at = datetime.now() 
+        company.deleted_at = datetime.now()
 
         try:
-            self.db.collection(settings.COMPANY_COLLECTION).document(id).set(company.dict())
+            self.db.collection(settings.COMPANY_COLLECTION).document(
+                id
+            ).set(company.dict())
 
         except Exception:
             raise HTTPException(
@@ -251,7 +259,6 @@ class CompanyRepository(AppRepository):
                 detail=f"An unexpected error occurred while deleting company: {id}",
             )
         return Response(status_code=status.HTTP_204_NO_CONTENT)
-
 
     def create_company(self, company: Company) -> Company:
         """
@@ -264,7 +271,9 @@ class CompanyRepository(AppRepository):
             Company: The newly created company object
         """
         try:
-            doc_ref = self.db.collection(settings.COMPANY_COLLECTION).add(company.dict())
+            doc_ref = self.db.collection(settings.COMPANY_COLLECTION).add(
+                company.dict()
+            )
             company_id = doc_ref[1].id
             new_company = self.get_single(company_id)
             return new_company
@@ -290,7 +299,9 @@ class CompanyRepository(AppRepository):
             updated_company = self.get_single(id)
             if isinstance(updated_company, HTTPException):
                 raise updated_company
-            self.db.collection(settings.COMPANY_COLLECTION).document(id).update(company.dict())
+            self.db.collection(settings.COMPANY_COLLECTION).document(
+                id
+            ).update(company.dict())
             return self.get_single(id)
 
         except HTTPException as e:
