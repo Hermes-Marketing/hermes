@@ -7,7 +7,9 @@ services:
       context: ./frontend
       target: development
       args:
-        HERMES_FE_PORT: "${HERMES_FE_PORT}" # Pass the environment variable as a build argument
+        HERMES_FE_PORT: '${HERMES_FE_PORT}' # Pass the environment variable as a build argument
+    env_file:
+      - ./.env
     ports:
       - "${HERMES_FE_PORT}:${HERMES_FE_PORT}"
     environment:
@@ -25,7 +27,9 @@ services:
     build:
       context: ./backend
       args:
-        HERMES_BE_PORT: "${HERMES_BE_PORT}" # Pass the environment variable as a build argument
+        HERMES_BE_PORT: '${HERMES_BE_PORT}' # Pass the environment variable as a build argument
+    env_file:
+      - ./.env
     environment:
       - "HERMES_BE_PORT=${HERMES_BE_PORT}"
       - PYTHONUNBUFFERED=1
