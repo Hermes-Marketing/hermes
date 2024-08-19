@@ -11,6 +11,11 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
+    hmr:{
+      protocol: 'wss',
+      host: 'hermes.xavrema.com',
+      port: 443, // or the port your server is using for wss
+    }
   },
   resolve: {
     alias: {
