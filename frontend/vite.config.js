@@ -9,7 +9,7 @@ export default defineConfig({
     host: true,
     port: process.env.HERMES_FE_PORT, // This is the port which we will use in docker
     watch: {
-      usePolling: true,
+      usePolling: false,
     },
     hmr:{
       protocol: 'wss',
