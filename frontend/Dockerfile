@@ -38,8 +38,9 @@ COPY package*.json ./
 RUN npm install --only=production
 
 # Expose the port for production
-EXPOSE 3000
+ARG HERMES_FE_PORT
+EXPOSE $HERMES_FE_PORT
 
 # Use a lightweight HTTP server to serve the static files
 RUN npm install -g serve
-CMD ["serve", "-s", "dist"]
+CMD ["serve", "-s", "dist", "-l", "$HERMES_FE_PORT"]
