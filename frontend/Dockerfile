@@ -38,9 +38,14 @@ COPY package*.json ./
 RUN npm install --only=production
 
 # Expose the port for production
-ARG HERMES_FE_PORT
+ENV HERMES_FE_PORT=${HERMES_FE_PORT}
 EXPOSE $HERMES_FE_PORT
 
 # Use a lightweight HTTP server to serve the static files
 RUN npm install -g serve
-CMD ["serve", "-s", "dist", "-l", "$HERMES_FE_PORT"]
+
+# Echo the value of HERMES_FE_PORT for debugging
+RUN echo "HERMES_FE_PORT is set to: $HERMES_FE_PORT"
+
+# Use a shell to expand the environment variable in CMD
+CMD sh -c 'serve -s dist -l $HERMES_FE_PORT'
