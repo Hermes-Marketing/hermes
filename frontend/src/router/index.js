@@ -1,28 +1,15 @@
-// src/router/index.js
-import { createRouter, createWebHistory } from "vue-router";
-import Home from "@/views/Home.vue";
-import NotFound from "@/views/NotFound.vue";
-import Admin from "@/views/modules/Admin.vue";
-import CardView from "@/views/modules/CardView.vue";
+import { createRouter, createWebHistory } from 'vue-router';
+import CompanyList from '../components/CompanyList.vue'; // Ensure the correct path to your component
+import PlanRoute from '../components/PlanRoute.vue';
 
 const routes = [
-  { path: "/", name: "Home", component: Home },
-  { path: "/admin", name: "Admin", component: Admin },
-  {
-    path: "/card/:id",
-    name: "CardView",
-    component: CardView,
-    props: (route) => ({
-      id: route.params.id,
-      cards: route.params.cards, // Ensure cards is passed in the route params
-    }),
-  },
-  { path: "/:catchAll(.*)", name: "NotFound", component: NotFound },  // Adjusted to correctly match all routes
+  { path: '/', component: CompanyList }, // Route for '/'
+  { path: '/plan-route', component: PlanRoute }
 ];
 
 const router = createRouter({
-  history: createWebHistory('/'),  // Pass the base path to createWebHistory
-  routes,
+  history: createWebHistory(),
+  routes
 });
 
 export default router;

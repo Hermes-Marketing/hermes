@@ -6,3 +6,4 @@ aiofiles
 python-dotenv @ https://files.pythonhosted.org/packages/44/2f/62ea1c8b593f4e093cc1a7768f0d46112107e790c3e478532329e434f00b/python_dotenv-1.0.0-py3-none-any.whl
 fastapi==0.112.0
 fastapi-pagination==0.12.26
+aiohttp==3.8.5    # For handling asynchronous HTTP
