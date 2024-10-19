@@ -1,25 +1,24 @@
-version: "3.8"
+version: '3.8'
 
 services:
   frontend:
     container_name: '${ENV}_frontend'
     build:
       context: ./frontend
-      target: ${BUILD_TARGET}  # Switch between development and production using the BUILD_TARGET variable
+      target: ${BUILD_TARGET}  # Use BUILD_TARGET to switch between 'development' and 'production'
       args:
-        HERMES_FE_PORT: '${HERMES_FE_PORT}' # Pass the environment variable as a build argument
+        HERMES_FE_PORT: '${HERMES_FE_PORT}'
     env_file:
       - ./.env
     ports:
-      - '${HERMES_FE_PORT}:${HERMES_FE_PORT}' # For development environment
-      # For production, map to the default production port (e.g., 3000:3000)
+      - '${HERMES_FE_PORT}:${HERMES_FE_PORT}' # Map ports based on environment
     environment:
       - 'HERMES_FE_PORT=${HERMES_FE_PORT}'
     volumes:
-      - ./frontend:/app        # Mount source code for development
+      - ./frontend:/app  # Mount source code for development
       - /app/node_modules
     depends_on:
-      - backend 
+      - backend
     networks:
       - app-network
 
@@ -28,14 +27,14 @@ services:
     build:
       context: ./backend
       args:
-        HERMES_BE_PORT: '${HERMES_BE_PORT}' # Pass the environment variable as a build argument
+        HERMES_BE_PORT: '${HERMES_BE_PORT}'  # Pass the environment variable as a build argument
     env_file:
       - ./.env
     environment:
       - 'HERMES_BE_PORT=${HERMES_BE_PORT}'
       - PYTHONUNBUFFERED=1
     ports:
-      - '${HERMES_BE_PORT}:${HERMES_BE_PORT}'
+      - '${HERMES_BE_PORT}:${HERMES_BE_PORT}'  # Map backend ports
     volumes:
       - ./backend:/app
       - ./frontend/dist:/app/frontend/dist

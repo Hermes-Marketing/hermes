@@ -16,8 +16,8 @@ FROM base AS build
 ARG HERMES_FE_PORT
 RUN npm run build
 
-# Dev stage (previously called development)
-FROM base AS dev
+# Development stage
+FROM base AS development
 ARG HERMES_FE_PORT
 
 # Expose the port for development

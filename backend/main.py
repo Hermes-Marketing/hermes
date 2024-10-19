@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1.api import router as api_router
 import uvicorn
 import os
@@ -8,6 +9,14 @@ app = FastAPI(
     title="Hermes API",
     version="1.0.0",
     docs_url="/docs",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins, change this in production to restrict specific domains
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
 )
 
 # Use a relative path for the Docker container
