@@ -9,18 +9,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@rollup/plugin-commonjs": "^28.0.1",
     "axios": "^1.7.7",
-    "leaflet": "^1.9.4",
-    "object-assign": "^4.1.1",
     "primevue": "^4.1.1",
     "vue": "^3.5.10",
+    "vue-leaflet": "^0.1.0",
     "vue-router": "^4.0.13",
     "vue3-leaflet": "^1.0.50",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",
+    "@vue-leaflet/vue-leaflet": "^0.10.1",
     "autoprefixer": "^10.4.20",
+    "leaflet": "^1.9.4",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.8"
