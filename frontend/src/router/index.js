@@ -9,6 +9,7 @@ const routes = [
     { path: "/city/:name", component: City, props: true },
     { path: "/places", component: Places }, // Add the new route
     { path: "/plan", component: PlanRoute }, // Add the new route
+    { path: "/near-me", component: () => import("../components/NearMe.vue") }, // Add the new route
 ];
 
 const router = createRouter({
