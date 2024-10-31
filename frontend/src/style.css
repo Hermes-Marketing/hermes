@@ -1,10 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Geller+Text:wght@400;700&family=Rift+Soft:wght@400;700&display=swap");
+
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    /* Fonts */
+    font-family: "Geller Text", "Rift Soft", Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
 
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #ffffff; /* Changed to white */
+    /* Primary Colors */
+    --primary-blue: #00a3e0; /* PANTONE 299 C */
+    --primary-yellow: #ffd141; /* PANTONE 122 C */
+    --primary-navy: #002b49; /* PANTONE 7463 C */
+    --primary-gold: #f1c400; /* PANTONE 7406 C */
+
+    /* Secondary Colors */
+    --secondary-maroon: #6f2c3f; /* PANTONE 505 C */
+    --secondary-orange: #e57200; /* PANTONE 152 C */
+    --secondary-brown: #85431e; /* PANTONE 7517 C */
+    --secondary-yellow: #fecf00; /* PMS CEO */
+    --black: #000000; /* Black */
+    --secondary-gold: #cda835; /* PMS 8-7 C */
+    --secondary-green: #9f912a; /* PANTONE 619 C */
+    --secondary-light-blue: #71b2c9; /* PANTONE 7458 C */
+    --secondary-beige: #8b6f4e; /* PANTONE 874 C */
+    --secondary-warm-grey: #6e6259; /* PANTONE WARM GREY 11C */
+    --secondary-cool-grey: #d0d0ce; /* PANTONE COOL GREY 2C */
+
+    color: var(--primary-navy);
+    background-color: #ffffff;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -14,27 +36,34 @@
 
 a {
     font-weight: 500;
-    color: #646cff;
+    color: var(--primary-blue);
     text-decoration: inherit;
 }
 a:hover {
-    color: #535bf2;
+    color: var(--primary-yellow);
 }
 
 h1 {
     font-size: 3.2em;
     line-height: 1.1;
+    font-weight: bold;
+    font-family: "Geller Text", sans-serif;
+}
+
+button {
+    background-color: var(--secondary-warm-grey);
+    color: #ffffff;
 }
 
 @media (prefers-color-scheme: light) {
     :root {
-        color: #213547;
-        background-color: #ffffff; /* Ensure it remains white in light mode */
+        color: var(--primary-navy);
+        background-color: #ffffff;
     }
     a:hover {
-        color: #747bff;
+        color: var(--secondary-orange);
     }
     button {
-        background-color: #f9f9f9;
+        background-color: var(--secondary-cool-grey);
     }
 }

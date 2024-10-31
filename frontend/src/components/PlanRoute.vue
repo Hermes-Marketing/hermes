@@ -206,15 +206,19 @@ export default {
 .plan-route-container {
     text-align: center;
     padding: 2rem;
+    font-family: Geller Text Regular;
+    background-color: #f1c400; /* PANTONE 7406 C */
 }
 
 .loading-message {
     font-size: 1.2rem;
-    color: blue;
+    color: #00a3e0; /* PANTONE 299 C */
+    font-family: Geller Text Regular;
 }
 
 .no-businesses {
-    color: red;
     font-size: 1.2rem;
+    color: #6f2c3f; /* PANTONE 505 C */
+    font-family: Geller Text Bold;
 }
 </style>

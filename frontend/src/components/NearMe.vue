@@ -119,25 +119,24 @@ export default {
     },
 };
 </script>
-
-<style scoped>
+<style>
 .near-me-container {
     text-align: center;
     padding: 2rem;
+    font-family: Geller Text Regular;
+    background-color: #ffffff;
 }
 
 .loading-message {
     font-size: 1.2rem;
-    color: blue;
+    color: #00a3e0; /* PANTONE 299 C */
+    font-family: Geller Text Regular;
 }
 
-.error-message {
-    font-size: 1.2rem;
-    color: red;
-}
-
+.error-message,
 .no-businesses {
-    color: red;
     font-size: 1.2rem;
+    color: #ffd141; /* PANTONE 122 C */
+    font-family: Geller Text Bold;
 }
 </style>

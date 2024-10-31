@@ -105,108 +105,115 @@ const updateCountry = (event) => {
     selectedCountry.value = event.value; // Update with the value selected
 };
 </script>
-
 <style scoped>
 .search-bar-container {
     display: flex;
     justify-content: center;
-    align-items: center; /* Align items vertically */
+    align-items: center;
     margin-bottom: 1.5rem;
-    gap: 1rem; /* Add space between components */
+    gap: 1rem;
+    font-family: Geller Text Regular;
+    background-color: #f1c400; /* PANTONE 7406 C */
 }
 
 .search-bar {
-    padding: 0.8rem; /* Padding for input */
-    font-size: 1rem; /* Font size */
-    border: 1px solid #ccc; /* Border for input */
-    border-radius: 8px; /* Rounded corners */
-    outline: none; /* Remove default outline */
-    width: 300px; /* Fixed width */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #002b49; /* PANTONE 7463 C */
+    border-radius: 8px;
+    outline: none;
+    width: 300px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Geller Text Regular;
+    background-color: #ffffff;
 }
 
 .search-bar:focus {
-    border-color: var(--primary-blue); /* Focus border color */
-    box-shadow: 0 0 5px rgba(0, 102, 204, 0.5); /* Glow effect on focus */
+    border-color: #00a3e0; /* PANTONE 299 C */
+    box-shadow: 0 0 5px rgba(0, 163, 224, 0.5);
 }
 
 .search-bar:hover {
-    border-color: var(--primary-blue); /* Hover border color */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Darker shadow on hover */
+    border-color: #00a3e0; /* PANTONE 299 C */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Style for the dropdown component */
 .state-dropdown,
 .country-dropdown {
-    width: 150px; /* Fixed width for dropdowns */
-    border: 1px solid #ccc; /* Border for dropdowns */
-    border-radius: 8px; /* Rounded corners */
-    background-color: white; /* Background color */
-    padding: 0.4rem; /* Padding for dropdowns */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    width: 150px;
+    border: 1px solid #002b49; /* PANTONE 7463 C */
+    border-radius: 8px;
+    background-color: #ffffff;
+    padding: 0.4rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: Geller Text Regular;
 }
 
 /* Dropdown styles on focus */
 .state-dropdown:focus,
 .country-dropdown:focus {
-    border-color: var(--primary-blue); /* Focus border color */
-    box-shadow: 0 0 5px rgba(0, 102, 204, 0.5); /* Glow effect on focus */
+    border-color: #00a3e0; /* PANTONE 299 C */
+    box-shadow: 0 0 5px rgba(0, 163, 224, 0.5);
 }
 
 /* Hover effect for dropdowns */
 .state-dropdown:hover,
 .country-dropdown:hover {
-    border-color: var(--primary-blue); /* Hover border color */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Darker shadow on hover */
+    border-color: #00a3e0; /* PANTONE 299 C */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Styling for dropdown options */
 .p-dropdown-item {
-    padding: 0.8rem; /* Padding for options */
-    border-bottom: 1px solid #eee; /* Divider between options */
-    transition: background-color 0.2s ease; /* Smooth transition for hover effect */
+    padding: 0.8rem;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s ease;
+    font-family: Geller Text Regular;
 }
 
 .p-dropdown-item:hover {
-    background-color: var(--primary-blue); /* Background color on hover */
-    color: white; /* Change text color on hover */
+    background-color: #00a3e0; /* PANTONE 299 C */
+    color: #ffffff;
 }
 
 /* Styling for the selected item */
 .p-dropdown-label {
-    padding: 0.8rem; /* Padding for selected label */
-    border-radius: 8px; /* Rounded corners */
-    background-color: #f9f9f9; /* Background for selected item */
-    color: #333; /* Text color */
+    padding: 0.8rem;
+    border-radius: 8px;
+    background-color: #f1c400; /* PANTONE 7406 C */
+    color: #002b49; /* PANTONE 7463 C */
+    font-family: Geller Text Bold;
 }
 
 /* Customize the dropdown arrow */
 .p-dropdown .p-dropdown-trigger {
-    background-color: transparent; /* Make background transparent */
-    border: none; /* Remove border */
-    cursor: pointer; /* Pointer cursor */
-}
-.search-button {
-    background-color: var(--primary-blue);
-    color: black; /* Change text color to white */
-
-    border: 1px solid #ccc; /* Border for input */
-    padding: 0.8rem 1.2rem; /* Increased padding */
-    font-size: 1rem;
-    border-radius: 8px; /* More rounded corners */
+    background-color: transparent;
+    border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform effect */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Added shadow */
+}
+
+.search-button {
+    background-color: #00a3e0; /* PANTONE 299 C */
+    color: #ffffff;
+    border: 1px solid #002b49; /* PANTONE 7463 C */
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    font-family: Geller Text Bold;
 }
 
 .search-button:hover {
-    background-color: var(--primary-gold);
-    transform: translateY(-2px); /* Lift effect on hover */
+    background-color: #ffd141; /* PANTONE 122 C */
+    transform: translateY(-2px);
 }
 
 .search-button:active {
-    transform: translateY(1px); /* Push effect on click */
+    transform: translateY(1px);
 }
 </style>

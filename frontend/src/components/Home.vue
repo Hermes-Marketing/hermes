@@ -74,11 +74,15 @@ const searchPlaces = () => {
 <style scoped>
 .search-bar {
     @apply w-96 p-2 border border-gray-300 rounded-full focus:border-black focus:outline-none;
+    margin-bottom: 20vh;
 }
+
 .home-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    margin-top: 20vh;
+    height: 100%;
+    background-color: #f1c400; /* PANTONE 7406 C */
 }
 
 .search-box {
@@ -87,6 +91,7 @@ const searchPlaces = () => {
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
+    background-color: #ffffff;
 }
 
 .cities {
@@ -96,6 +101,8 @@ const searchPlaces = () => {
     align-items: center;
     justify-content: center;
     font-size: 1.5em;
+    font-family: Geller Text Regular;
+    color: #002b49; /* PANTONE 7463 C */
 }
 
 .city-grid {
@@ -110,6 +117,10 @@ const searchPlaces = () => {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #002b49; /* PANTONE 7463 C */
+    border-radius: 10px;
 }
 
 .city-image {
@@ -123,11 +134,13 @@ const searchPlaces = () => {
 }
 
 .city-name {
-    color: #9e9696; /* Dark grey */
+    color: #6f2c3f; /* PANTONE 505 C */
     transition: color 0.3s;
+    font-family: Geller Text Bold;
+    font-size: 1.2em;
 }
 
 .city-name:hover {
-    color: black; /* Black on hover */
+    color: #002b49; /* PANTONE 7463 C */
 }
 </style>

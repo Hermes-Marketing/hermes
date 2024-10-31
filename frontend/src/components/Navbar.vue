@@ -8,6 +8,7 @@
         </div>
         <div class="flex-grow text-center">
             <span class="text-white font-bold">Hermes Marketing</span>
+            <span class="text-white font-bold block">For Sigs, By Sigs</span>
         </div>
         <div class="flex space-x-4">
             <a href="/plan" class="text-white no-underline hover:underline"
