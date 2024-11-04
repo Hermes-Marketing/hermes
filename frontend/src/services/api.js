@@ -4,7 +4,7 @@ import axios from "axios";
 export const getCompaniesByState = async (stateCode) => {
     try {
         const response = await axios.get(
-            `http://localhost:8080/v1/company/state/${stateCode}`
+            `http://localhost:8000/v1/company/state/${stateCode}`
         );
         return response;
     } catch (error) {
@@ -15,7 +15,7 @@ export const getCompaniesByState = async (stateCode) => {
 
 export const getCompanies = () => {
     return axios
-        .get("http://localhost:8080/v1/company")
+        .get("http://localhost:8000/v1/company")
         .then((response) => response)
         .catch((error) => {
             console.error("Error in API request", error);
